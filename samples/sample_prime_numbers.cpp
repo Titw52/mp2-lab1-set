@@ -19,7 +19,7 @@ int main()
     TBitField bf1(10);
     TBitField bf2 = bf1;
 
-    bf1.SetBit(0); bf1.SetBit(1); bf1.SetBit(4); bf1.SetBit(9);
+    bf1.SetBit(0); bf1.SetBit(1); bf1.SetBit(4); bf1.SetBit(8);
     bf2.SetBit(1); bf2.SetBit(2); bf2.SetBit(3); bf2.SetBit(4);
 
     cout << "bf1: " << bf1 << endl;
