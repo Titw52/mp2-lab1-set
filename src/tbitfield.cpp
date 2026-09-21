@@ -13,9 +13,9 @@ static TBitField FAKE_BITFIELD(1);
 
 TBitField::TBitField(int len)
 {
-    if (len < 0) throw "Длина поля меньше 0.";
+    if (len < 0) throw len;
     BitLen = len;
-    MemLen = (BitLen - 1) / sizeof(TELEM);
+    MemLen = (BitLen - 1) / sizeof(TELEM) + 1;
     pMem = new TELEM[MemLen];
     for (int i = 0; i < MemLen; i++) {
         pMem[i] = 0;
@@ -41,13 +41,13 @@ TBitField::~TBitField()
 
 int TBitField::GetMemIndex(const int n) const // индекс Мем для бита n
 {
-    if (n < 0 || n >= BitLen) throw "Неверный индекс";
+    if (n < 0 || n >= BitLen) throw n;
     return n / (sizeof(TELEM) * 8);
 }
 
 TELEM TBitField::GetMemMask(const int n) const // битовая маска для бита n
 {
-    if (n < 0 || n >= BitLen) throw "Неверный индекс";
+    if (n < 0 || n >= BitLen) throw n;
     TELEM res = 1;
     int idBit = n % (sizeof(TELEM) * 8);
     res <<= idBit;
@@ -63,19 +63,19 @@ int TBitField::GetLength(void) const // получить длину (к-во б�
 
 void TBitField::SetBit(const int n) // установить бит
 {
-    if (n < 0 || n >= BitLen) throw "Неверный индекс";
+    if (n < 0 || n >= BitLen) throw n;
     pMem[GetMemIndex(n)] |= GetMemMask(n);
 }
 
 void TBitField::ClrBit(const int n) // очистить бит
 {
-    if (n < 0 || n >= BitLen) throw "Неверный индекс";
+    if (n < 0 || n >= BitLen) throw n;
     pMem[GetMemIndex(n)] &= ~GetMemMask(n);
 }
 
 int TBitField::GetBit(const int n) const // получить значение бита
 {
-    if (n < 0 || n >= BitLen) throw "Неверный индекс";
+    if (n < 0 || n >= BitLen) throw n;
     return (pMem[GetMemIndex(n)] & GetMemMask(n)) != 0;
 }
 
@@ -97,7 +97,7 @@ TBitField& TBitField::operator=(const TBitField &bf) // присваивание
 
 int TBitField::operator==(const TBitField &bf) const // сравнение
 {
-    if (MemLen != bf.MemLen) throw "Множества разной длины";
+    if (MemLen != bf.MemLen) throw 1;
     for (int i = 0; i < MemLen; i++) {
         if (pMem[i] != bf.pMem[i]) {
             return 0;
@@ -108,7 +108,7 @@ int TBitField::operator==(const TBitField &bf) const // сравнение
 
 int TBitField::operator!=(const TBitField &bf) const // сравнение
 {
-    if (MemLen != bf.MemLen) throw "Множества разной длины";
+    if (MemLen != bf.MemLen) throw 1;
     for (int i = 0; i < MemLen; i++) {
         if (pMem[i] != bf.pMem[i]) {
             return 1;
@@ -119,7 +119,7 @@ int TBitField::operator!=(const TBitField &bf) const // сравнение
 
 TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 {
-    if (MemLen != bf.MemLen) throw "Множества разной длины";
+    if (MemLen != bf.MemLen) throw 1;
     TBitField res(BitLen);
     for (int i = 0; i < MemLen; i++) {
         res.pMem[i] = pMem[i] | bf.pMem[i];
@@ -129,7 +129,7 @@ TBitField TBitField::operator|(const TBitField &bf) // операция "или"
 
 TBitField TBitField::operator&(const TBitField &bf) // операция "и"
 {
-    if (MemLen != bf.MemLen) throw "Множества разной длины";
+    if (MemLen != bf.MemLen) throw 1;
     TBitField res(BitLen);
     for (int i = 0; i < MemLen; i++) {
         res.pMem[i] = pMem[i] & bf.pMem[i];
