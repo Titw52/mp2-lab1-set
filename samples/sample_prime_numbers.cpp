@@ -16,54 +16,55 @@
 
 int main()
 {
-    TBitField bf1(10);
-    TBitField bf2 = bf1;
+    //TBitField bf1(10);
+    //TBitField bf2(20);
 
-    bf1.SetBit(0); bf1.SetBit(1); bf1.SetBit(4); bf1.SetBit(8);
-    bf2.SetBit(1); bf2.SetBit(2); bf2.SetBit(3); bf2.SetBit(4);
+    //bf1.SetBit(0); bf1.SetBit(1); bf1.SetBit(4); bf1.SetBit(8);
+    //bf2.SetBit(1); bf2.SetBit(2); bf2.SetBit(3); bf2.SetBit(4);
+    //bf2.SetBit(6); bf2.SetBit(12); bf2.SetBit(13); bf2.SetBit(19);
 
-    cout << "bf1: " << bf1 << endl;
-    cout << "bf2: " << bf2 << endl;
+    //cout << "bf1: " << bf1 << endl;
+    //cout << "bf2: " << bf2 << endl;
 
-    cout << "bf1 == bf2: " << (bf1 == bf2) << endl;
-    cout << "bf1 != bf2: " << (bf1 != bf2) << endl;
-    cout << "bf1 | bf2: " << (bf1 | bf2) << endl;
-    cout << "bf1 & bf2: " << (bf1 & bf2) << endl;
-    cout << "~bf1: " << (~bf1) << endl;
+    //cout << "bf1 == bf2: " << (bf2 == bf1) << endl;
+    //cout << "bf1 != bf2: " << (bf2 != bf1) << endl;
+    //cout << "bf1 | bf2: " << (bf2 | bf1) << endl;
+    //cout << "bf1 & bf2: " << (bf2 & bf1) << endl;
+    //cout << "~bf1: " << (~bf1) << endl;
 
-  //int n, m, k, count;
+  int n, m, k, count;
 
-  //setlocale(LC_ALL, "Russian");
-  //cout << "Тестирование программ поддержки битового поля" << endl;
-  //cout << "             Решето Эратосфена" << endl;
-  //cout << "Введите верхнюю границу целых значений - ";
-  //cin  >> n;
-  //TBitField s(n + 1);
-  //// заполнение множества
-  //for (m = 2; m <= n; m++)
-  //  s.SetBit(m);
-  //// проверка до sqrt(n) и удаление кратных
-  //for (m = 2; m * m <= n; m++)
-  //  // если m в s, удаление кратных
-  //  if (s.GetBit(m))
-  //    for (k = 2 * m; k <= n; k += m)
-  //      if (s.GetBit(k))
-  //        s.ClrBit(k);
-  //// оставшиеся в s элементы - простые числа
-  //cout << endl << "Печать множества некратных чисел" << endl << s << endl;
-  //cout << endl << "Печать простых чисел" << endl;
-  //count = 0;
-  //k = 1;
-  //for (m = 2; m <= n; m++)
-  //  if (s.GetBit(m))
-  //  {
-  //    count++;
-  //    cout << setw(3) << m << " ";
-  //    if (k++ % 10 == 0)
-  //      cout << endl;
-  //  }
-  //cout << endl;
-  //cout << "В первых " << n << " числах " << count << " простых" << endl;
+  setlocale(LC_ALL, "Russian");
+  cout << "Тестирование программ поддержки битового поля" << endl;
+  cout << "             Решето Эратосфена" << endl;
+  cout << "Введите верхнюю границу целых значений - ";
+  cin  >> n;
+  TBitField s(n + 1);
+  // заполнение множества
+  for (m = 2; m <= n; m++)
+    s.SetBit(m);
+  // проверка до sqrt(n) и удаление кратных
+  for (m = 2; m * m <= n; m++)
+    // если m в s, удаление кратных
+    if (s.GetBit(m))
+      for (k = 2 * m; k <= n; k += m)
+        if (s.GetBit(k))
+          s.ClrBit(k);
+  // оставшиеся в s элементы - простые числа
+  cout << endl << "Печать множества некратных чисел" << endl << s << endl;
+  cout << endl << "Печать простых чисел" << endl;
+  count = 0;
+  k = 1;
+  for (m = 2; m <= n; m++)
+    if (s.GetBit(m))
+    {
+      count++;
+      cout << setw(3) << m << " ";
+      if (k++ % 10 == 0)
+        cout << endl;
+    }
+  cout << endl;
+  cout << "В первых " << n << " числах " << count << " простых" << endl;
 }
 #else
 
